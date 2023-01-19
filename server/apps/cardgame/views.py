@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
 from server.apps.cardgame.models import User
 from .models import Game
+from django.shortcuts import get_object_or_404
 
 def main(request, *args, **kwargs):
   return render(request, "cardgame/main.html")
@@ -37,8 +38,11 @@ def game_rank(request, *args, **kwargs):
   }
   return render(request, "cardgame/ranking.html", context=context)
 
-# def game_delete(request, *args, **kwargs):
-#   return redirect('')
+def game_delete(request, pk, *args, **kwargs):
+  login_session = request.session.get('login_session', '')
+  game = get_object_or_404(Game, pk=pk)
+  game.delete()
+  return redirect('cardgame:list')
 
 
 def signup(request):

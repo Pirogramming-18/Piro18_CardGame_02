@@ -20,7 +20,7 @@
               {% if user.username == game.receiver %} <!--이 문장 고쳐야 함-->
                 <a href="" class="btn main-color btn-piro p-1">반격하기</a>
               {% else %}
-                <span class="text-light">진행중... </span><a href="" class="btn main-color btn-piro p-1">게임취소</a>
+                <span class="text-light">진행중... </span><a href="{% url 'cardgame:delete' game.pk %}" class="btn main-color btn-piro p-1">게임취소</a>
               {% endif %}
             {% endif %}
           </div>
