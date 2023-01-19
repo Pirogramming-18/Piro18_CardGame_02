@@ -3,15 +3,26 @@ from server.apps.cardgame.forms import SignupForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
 from server.apps.cardgame.models import User
+from .models import Game
 
 def main(request, *args, **kwargs):
   return render(request, "cardgame/main.html")
 
 def game_list(request, *args, **kwargs):
-  return render(request, "cardgame/game_list.html")
+  this_user = request.user
+  user = User.objects.get(username=this_user)
+  games = Game.objects.filter(receiver=user)| Game.objects.filter(sender=user)
+  context = {
+    "games" : games,
+  }
+  return render(request, "cardgame/game_list.html", context=context)
 
-def game_detail(request, *args, **kwargs):
-  return render(request, "cardgame/game_detail.html")
+def game_detail(request, pk, *args, **kwargs):
+  game = Game.objects.get(pk=pk)
+  context = {
+    "game" : game,
+  }
+  return render(request, "cardgame/game_detail.html", context=context)
 
 def game_create(request, *args, **kwargs):
   return render(request, "cardgame/game_create.html")
