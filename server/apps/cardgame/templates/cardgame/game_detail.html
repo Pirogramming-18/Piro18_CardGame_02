@@ -1,6 +1,32 @@
 {% extends 'cardgame/base.html' %}
 
 {% block content %}
-  <div>
+  <div class="d-flex justify-content-center align-items-center bg-dark">
+    <div class="bg-black p-5" id="detail-con">
+      <h4 class="text-light mb-5"><b>num-player1 VS player2</b></h4>
+      <!-- 내가 걸었는데 아직 안받았을 때
+      <p class="text-light m-2">진행중..</p>
+      <p class="text-light m-2">나: user.cardnum</p>
+      <a href="" class="btn main-color btn-piro">게임취소</a> -->
+      <!-- 상대가 걸었을 때
+      <div class="d-flex justify-content-center mt-5">
+        <a href="" class="btn main-color btn-piro mt-4">대응하기</a>
+      </div>
+      <hr class="main-color"> -->
+      <!-- 이미 끝난 게임 -->
+      <hr class="main-color m-0">
+      <p class="m-1 text-light"><b>숫자가 더 작은 사람이 대결에서 이깁니다</b></p>
+      <hr class="main-color m-0">
+      <p class="m-1 text-light"><b>player1 : cardnum1</b></p>
+      <p class="m-1 text-light"><b>player2 : cardnum2</b></p>
+      <hr class="main-color m-0">
+      <p class="m-1 text-light"><b>결과 : result</b></p>
+      <hr class="main-color m-0">
+      <p class="m-1 text-light"><b><span class="main-color">점수</span> : + - cardnum</b></p>
+      <!-- endif -->
+      <div class="d-flex justify-content-center mt-5">
+        <a href="" class="btn main-color btn-piro">전적 목록</a>
+      </div>
+    </div>
   </div>
 {% endblock %}
