@@ -33,10 +33,12 @@ def game_create(request, *args, **kwargs):
   if request.method == "POST":
     print(request.POST['cardnum'])
     receive = request.POST['player']
+    win_condition = random.choice(['bigger','smaller'])
     Game.objects.create(
       sender_card_num = request.POST['cardnum'],
       receiver = User.objects.get(username=receive),
       sender = User.objects.get(username=user),
+      win_condition = win_condition,
     )
     return redirect("cardgame:list")
   
