@@ -100,7 +100,7 @@ def game_receive(request, pk, *args, **kwargs):
         game.winner = game.receiver
         game.receiver.points += game.receiver_card_num
         game.sender.points -= game.sender_card_num
-      else:
+      elif game.receiver_card_num < game.sender_card_num:
         game.winner = game.sender
         game.receiver.points -= game.receiver_card_num
         game.sender.points += game.sender_card_num
@@ -109,7 +109,7 @@ def game_receive(request, pk, *args, **kwargs):
         game.winner = game.sender
         game.receiver.points -= game.receiver_card_num
         game.sender.points += game.sender_card_num
-      else:
+      elif game.receiver_card_num < game.sender_card_num:
         game.winner = game.receiver
         game.receiver.points += game.receiver_card_num
         game.sender.points -= game.sender_card_num

@@ -16,9 +16,9 @@
           <div class="col-4">
             {% if game.receiver_card_num %}
               {% if user == game.winner %}
-              <p class="text-light">결과: 승리 //결과 발표</p>
+              <p class="text-light">결과: 승리</p>
               {% else %}
-              <p class="text-light">결과: 패배 //결과 발표</p>
+              <p class="text-light">결과: 패배</p>
               {% endif %}
             {% else %}
               {% if user == game.receiver %}

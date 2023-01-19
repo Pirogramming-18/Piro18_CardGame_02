@@ -11,7 +11,7 @@
         <a href="{% url 'cardgame:delete' game.pk %}" class="btn main-color btn-piro">게임취소</a>
       {% elif game.receiver == user and not game.receiver_card_num %}
         <div class="d-flex justify-content-center mt-5">
-          <a href="" class="btn main-color btn-piro mt-4">대응하기</a>
+          <a href="{% url 'cardgame:update' game.pk %}" class="btn main-color btn-piro mt-4">대응하기</a>
         </div>
         <hr class="main-color">
       {% else %}
@@ -26,12 +26,16 @@
       <p class="m-1 text-light"><b>나 : {{game.receiver_card_num}}</b></p>
       {% endif %}
       <hr class="main-color m-0">
-      {% if game.winner == user %}
-        <p class="m-1 text-light"><b>결과 : 승리</b></p>
+      {% if not game.winner %}
+        <p class="m-1 text-light"><b><span class="main-color">결과</span> : 무승부</b></p>
+        <hr class="main-color m-0">
+        <p class="m-1 text-light"><b><span class="main-color">점수</span> : 양측 모두 0점</b></p>
+      {% elif game.winner == user %}
+        <p class="m-1 text-light"><b><span class="main-color">결과</span> : 승리</b></p>
         <hr class="main-color m-0">
         <p class="m-1 text-light"><b><span class="main-color">점수</span> : + {{ winner_score }}점</b></p>
       {% else %}
-        <p class="m-1 text-light"><b>결과 : 패배</b></p>
+        <p class="m-1 text-light"><b><span class="main-color">결과</span> : 패배</b></p>
         <hr class="main-color m-0">
         <p class="m-1 text-light"><b><span class="main-color">점수</span> : - {{ loser_score }}점</b></p>
       {% endif %}
