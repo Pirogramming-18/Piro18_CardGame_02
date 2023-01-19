@@ -58,7 +58,11 @@ def game_receive(request, *args, **kwargs):
   return render(request, "cardgame/game_receive.html")
 
 def game_rank(request, *args, **kwargs):
-  return render(request, "cardgame/ranking.html")
+  users = User.objects.all().order_by("points")
+  context = {
+    "users" : users,
+  }
+  return render(request, "cardgame/ranking.html", context=context)
 
 # def game_delete(request, *args, **kwargs):
 #   return redirect('')

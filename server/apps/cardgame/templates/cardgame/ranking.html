@@ -5,12 +5,11 @@
     <div class="bg-black p-5" id="detail-con">
       <h4 class="text-light mb-3"><b>Piro 명예의 전당</b></h4>
       <br>
-      <!-- for 문으로 user_list 인데 order_by로 score 받아서 오면 됨 -->
-      <p class="my-3 text-light"><b>i등 username님! 총점수: score 점</b></p>
-      <p class="my-3 text-light"><b>i등 username님! 총점수: score 점</b></p>
-      <p class="my-3 text-light"><b>i등 username님! 총점수: score 점</b></p>
+      {% for player in users %}
+        <p class="my-3 text-light"><b>{{player.pk}}등 {{player.username}}님! 총점수: {{player.points}} 점</b></p>
+      {% endfor %}
       <div class="d-flex justify-content-center">
-        <a href="" class="btn main-color btn-piro">전적 목록</a>
+        <a href="{% url 'cardgame:list' %}" class="btn main-color btn-piro">전적 목록</a>
       </div>
     </div>
   </div>
