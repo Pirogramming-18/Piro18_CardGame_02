@@ -27,11 +27,32 @@ def game_detail(request, pk, *args, **kwargs):
     win_cond = '큰'
   else:
     win_cond = '작은'
+    
   context = {
     "game" : game,
     "user" : user,
     "win_cond" : win_cond,
   }
+  
+  if game.winner:
+    x = [game.sender_card_num, game.receiver_card_num]
+    if game.winner == user:
+      if game.sender == user:
+        context['winner_score'] = game.sender_card_num
+        x.remove(game.sender_card_num)
+      else:
+        context['winner_score'] = game.receiver_card_num
+        x.remove(game.receiver_card_num)
+    else:
+      if game.sender == user:
+        context['winner_score'] = game.receiver_card_num
+        x.remove(game.receiver_card_num)
+      else:
+        context['winner_score'] = game.sender_card_num
+        x.remove(game.sender_card_num)
+    context['loser_score'] = x[0]
+    
+    
   return render(request, "cardgame/game_detail.html", context=context)
 
 def game_create(request, *args, **kwargs):
@@ -40,7 +61,6 @@ def game_create(request, *args, **kwargs):
   username= request.user.username
   
   if request.method == "POST":
-    print(request.POST['cardnum'])
     receive = request.POST['player']
     win_condition = random.choice(['bigger','smaller'])
     Game.objects.create(
@@ -63,11 +83,48 @@ def game_create(request, *args, **kwargs):
   }
   return render(request, "cardgame/game_create.html", context=context)
 
-def game_receive(request, *args, **kwargs):
-  return render(request, "cardgame/game_receive.html")
+def game_receive(request, pk, *args, **kwargs):
+  game = Game.objects.get(pk=pk)
+  user = request.user
+  
+  if request.method == "POST":
+    game.receiver_card_num = int(request.POST["cardnum"])
+    if game.win_condition == 'bigger':
+      if game.receiver_card_num > game.sender_card_num:
+        game.winner = game.receiver
+        game.receiver.points += game.receiver_card_num
+        game.sender.points -= game.sender_card_num
+      else:
+        game.winner = game.sender
+        game.receiver.points -= game.receiver_card_num
+        game.sender.points += game.sender_card_num
+    else:
+      if game.receiver_card_num > game.sender_card_num:
+        game.winner = game.sender
+        game.receiver.points -= game.receiver_card_num
+        game.sender.points += game.sender_card_num
+      else:
+        game.winner = game.receiver
+        game.receiver.points += game.receiver_card_num
+        game.sender.points -= game.sender_card_num
+    game.sender.save()
+    game.receiver.save()
+    game.save()
+    return redirect("/game/{}".format(pk))
+    
+  
+  import random
+  card_list= [1,2,3,4,5,6,7,8,9,10]
+  card_nums = sorted(random.sample(card_list, 5))
+  context = {
+    "game" : game,
+    "user" : user,
+    'card_nums' : card_nums,
+  }
+  return render(request, "cardgame/game_receive.html", context=context)
 
 def game_rank(request, *args, **kwargs):
-  users = User.objects.all().order_by("points")
+  users = User.objects.all().order_by("-points")
   context = {
     "users" : users,
   }

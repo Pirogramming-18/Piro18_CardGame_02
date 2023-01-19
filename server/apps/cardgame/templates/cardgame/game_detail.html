@@ -18,16 +18,23 @@
       <hr class="main-color m-0">
       <p class="m-1 text-light"><b>숫자가 더 {{ win_cond }} 사람이 대결에서 이깁니다</b></p>
       <hr class="main-color m-0">
-      <p class="m-1 text-light"><b>{{game.sender}} : {{game.sender_card_num}}</b></p>
+      {% if game.sender == user %}
+      <p class="m-1 text-light"><b>나 : {{game.sender_card_num}}</b></p>
       <p class="m-1 text-light"><b>{{game.receiver}} : {{game.receiver_card_num}}</b></p>
+      {% else %}
+      <p class="m-1 text-light"><b>{{game.sender}} : {{game.sender_card_num}}</b></p>
+      <p class="m-1 text-light"><b>나 : {{game.receiver_card_num}}</b></p>
+      {% endif %}
       <hr class="main-color m-0">
-      {% comment %} { if game.winner == user.username }
+      {% if game.winner == user %}
         <p class="m-1 text-light"><b>결과 : 승리</b></p>
-      { else }
+        <hr class="main-color m-0">
+        <p class="m-1 text-light"><b><span class="main-color">점수</span> : + {{ winner_score }}점</b></p>
+      {% else %}
         <p class="m-1 text-light"><b>결과 : 패배</b></p>
-      {% endcomment %}
-      <hr class="main-color m-0">
-      <p class="m-1 text-light"><b><span class="main-color">점수</span> : + - cardnum</b></p>
+        <hr class="main-color m-0">
+        <p class="m-1 text-light"><b><span class="main-color">점수</span> : - {{ loser_score }}점</b></p>
+      {% endif %}
       {% endif %}
       <div class="d-flex justify-content-center mt-5">
         <a href="{% url 'cardgame:list' %}" class="btn main-color btn-piro">전적 목록</a>
