@@ -83,3 +83,13 @@ a {
   padding: 12rem;
   height: 37rem;
 }
+
+/* login.html css */
+#login-con {
+  border-radius: 6px;
+  box-shadow: 7px 7px 7px black;
+}
+
+#login-box {
+  padding: 5rem;
+}
