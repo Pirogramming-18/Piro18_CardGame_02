@@ -11,4 +11,8 @@ urlpatterns = [
   path("game/<int:pk>/", views.main, name="detail"),
   path('game/receive/<int:pk>/', views.game_receive, name='update'),
   # path('game/delete/<int:pk>/', views.game_delete, name='delete'),
+  path("signup/", views.signup, name="signup"),
+  path("login/", views.login, name="login"),
+  path("logout/", views.logout, name="logout"),
+
 ]
