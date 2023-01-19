@@ -22,8 +22,15 @@ def game_list(request, *args, **kwargs):
 
 def game_detail(request, pk, *args, **kwargs):
   game = Game.objects.get(pk=pk)
+  user = request.user
+  if game.win_condition == 'bigger':
+    win_cond = '큰'
+  else:
+    win_cond = '작은'
   context = {
     "game" : game,
+    "user" : user,
+    "win_cond" : win_cond,
   }
   return render(request, "cardgame/game_detail.html", context=context)
 
