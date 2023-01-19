@@ -6,6 +6,8 @@ from server.apps.cardgame.models import User
 from django.shortcuts import get_object_or_404
 from server.apps.cardgame.models import User, Game
 from .models import Game
+from django.db.models import Q
+from django.shortcuts import get_object_or_404
 
 def main(request, *args, **kwargs):
   return render(request, "cardgame/main.html")
@@ -13,7 +15,11 @@ def main(request, *args, **kwargs):
 def game_list(request, *args, **kwargs):
   this_user = request.user
   user = User.objects.get(username=this_user)
-  games = Game.objects.filter(receiver=user)| Game.objects.filter(sender=user)
+  qs1 = Game.objects.filter(receiver=user)
+  qs2 = Game.objects.filter(sender=user)
+
+  games = qs1.union(qs2)
+  
   context = {
     "user" : user,
     "games" : games,
