@@ -8,9 +8,9 @@ class User(AbstractUser):
   created_at = models.DateTimeField(auto_now_add=True)
   
 class Game(models.Model):
-  receiver_card_num = models.IntegerField(null=True)
+  receiver_card_num = models.IntegerField(null=True, blank=True)
   sender_card_num = models.IntegerField()
-  winner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='game_winner')
+  winner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='game_winner',blank=True)
   receiver = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='game_receiver')
   sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='game_sender')  
   created_at = models.DateTimeField(auto_now_add=True)
