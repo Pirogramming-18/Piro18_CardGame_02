@@ -8,84 +8,27 @@
     <p class="text-light" id="list-title"><b>현재 플레이어: user명!!!</b></p>
     <hr class="main-color">
     <div class="container" id="list-pcon">
-      <!-- for문으로 user 의 기록 돌리기 -->
-      <div class="row py-2">
-        <div class="col-5">
-          <p class="text-light"><span class="main-color">num-</span> player1 <span class="main-color">VS</span> player2</p>
+      {% for game in games %}
+        <div class="row py-2">
+          <div class="col-5">
+            <p class="text-light"><span class="main-color">{{game.pk}}</span>{{game.sender}}<span class="main-color">VS</span> {{game.receiver}}</p>
+          </div>
+          <div class="col-4">
+            {% if game.receiver_card_num %}
+              <p class="text-light">결과: 패배 //결과 발표</p>
+            {% else %}
+              {% if user.username == game.receiver %} <!--이 문장 고쳐야 함-->
+                <a href="" class="btn main-color btn-piro p-1">반격하기</a>
+              {% else %}
+                <span class="text-light">진행중... </span><a href="" class="btn main-color btn-piro p-1">게임취소</a>
+              {% endif %}
+            {% endif %}
+          </div>
+          <div class="col-3">
+            <a href="{% url 'cardgame:detail' game.pk %}" class="btn main-color btn-piro p-1">게임정보</a>
+          </div>
         </div>
-        <div class="col-4">
-          <!-- 게임 끝남
-          <p class="text-light">결과: 패배 //결과 발표</p> -->
-          <!-- 진행중 -->
-          <span class="text-light">진행중... </span><a href="" class="btn main-color btn-piro p-1">게임취소</a>
-          <!-- 게임 신청이 옴
-          <a href="" class="btn main-color btn-piro p-1">반격하기</a> -->
-        </div>
-        <div class="col-3">
-          <a href="" class="btn main-color btn-piro p-1">게임정보</a>
-        </div>
-      </div>
-
-      <div class="row py-2">
-        <div class="col-5">
-          <p class="text-light"><span class="main-color">num-</span> player1 <span class="main-color">VS</span> player2</p>
-        </div>
-        <div class="col-4">
-          <span class="text-light">진행중... </span><a href="" class="btn main-color btn-piro p-1">게임취소</a>
-        </div>
-        <div class="col-3">
-          <a href="" class="btn main-color btn-piro p-1">게임정보</a>
-        </div>
-      </div>
-
-      <div class="row py-2">
-        <div class="col-5">
-          <p class="text-light"><span class="main-color">num-</span> player1 <span class="main-color">VS</span> player2</p>
-        </div>
-        <div class="col-4">
-          <a href="" class="btn main-color btn-piro p-1">반격하기</a>
-        </div>
-        <div class="col-3">
-          <a href="" class="btn main-color btn-piro p-1">게임정보</a>
-        </div>
-      </div>
-
-      <div class="row py-2">
-        <div class="col-5">
-          <p class="text-light"><span class="main-color">num-</span> player1 <span class="main-color">VS</span> player2</p>
-        </div>
-        <div class="col-4">
-          <p class="text-light">결과: 패배 //결과 발표</p>
-        </div>
-        <div class="col-3">
-          <a href="" class="btn main-color btn-piro p-1">게임정보</a>
-        </div>
-      </div>
-
-      <div class="row py-2">
-        <div class="col-5">
-          <p class="text-light"><span class="main-color">num-</span> player1 <span class="main-color">VS</span> player2</p>
-        </div>
-        <div class="col-4">
-          <p class="text-light">결과: 패배 //결과 발표</p>
-        </div>
-        <div class="col-3">
-          <a href="" class="btn main-color btn-piro p-1">게임정보</a>
-        </div>
-      </div>
-
-      <div class="row py-2">
-        <div class="col-5">
-          <p class="text-light"><span class="main-color">num-</span> player1 <span class="main-color">VS</span> player2</p>
-        </div>
-        <div class="col-4">
-          <p class="text-light">결과: 패배</p>
-        </div>
-        <div class="col-3">
-          <a href="" class="btn main-color btn-piro p-1">게임정보</a>
-        </div>
-      </div>
-
+      {% endfor %}
     </div>
   </div>
 {% endblock %}
