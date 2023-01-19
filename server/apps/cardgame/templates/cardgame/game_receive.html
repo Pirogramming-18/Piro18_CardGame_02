@@ -1,6 +1,29 @@
-{% extends 'cardgame/base.html' %}
-
-{% block content %}
-  <div>
-  </div>
+{% extends 'cardgame/base.html' %} {% block content %}
+<div
+  class="d-flex flex-column align-items-center text-center bg-dark"
+  id="receive-con"
+>
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h5 class="text-light m-5"><b>상대방user 에게 반격하세요!</b></h5>
+    <p class="text-light m-4">
+      내가 고른 카드 :
+      <select id="cardnum" name="cardnum">
+        <option name="cardnum">1</option>
+        <option name="cardnum">2</option>
+        <option name="cardnum">3</option>
+        <!-- { for cardnum in cardnums }
+            <option value="{{ cardnum.id }}" name="cardnum">{{ cardnum }}</option>
+          { endfor } -->
+      </select>
+    </p>
+    <div>
+      <input
+        type="submit"
+        class="btn main-color btn-piro px-5"
+        value="반격하기!"
+      />
+    </div>
+  </form>
+</div>
 {% endblock %}
