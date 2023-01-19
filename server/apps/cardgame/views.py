@@ -14,6 +14,7 @@ def game_list(request, *args, **kwargs):
   user = User.objects.get(username=this_user)
   games = Game.objects.filter(receiver=user)| Game.objects.filter(sender=user)
   context = {
+    "user" : user,
     "games" : games,
   }
   return render(request, "cardgame/game_list.html", context=context)
