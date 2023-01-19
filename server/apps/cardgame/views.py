@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from server.apps.cardgame.forms import SignupForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
-from server.apps.cardgame.models import User
+from django.contrib.auth import get_user_model
+from server.apps.cardgame.models import User, Game
 
 def main(request, *args, **kwargs):
   return render(request, "cardgame/main.html")
@@ -14,7 +15,29 @@ def game_detail(request, *args, **kwargs):
   return render(request, "cardgame/game_detail.html")
 
 def game_create(request, *args, **kwargs):
-  return render(request, "cardgame/game_create.html")
+  import random
+  user = request.user.username
+  
+  if request.method == "POST":
+    print(request.POST['cardnum'])
+    receive = request.POST['player']
+    Game.objects.create(
+      sender_card_num = request.POST['cardnum'],
+      receiver = User.objects.get(username=receive),
+      sender = User.objects.get(username=user),
+    )
+    return redirect("cardgame:list")
+  
+  vs_users = User.objects.exclude(username=user)
+  card_list= [1,2,3,4,5,6,7,8,9,10]
+  card_nums = sorted(random.sample(card_list, 5))
+  
+  context = {
+    'user' : user,
+    'vs_users' : vs_users,
+    'card_nums' : card_nums,
+  }
+  return render(request, "cardgame/game_create.html", context=context)
 
 def game_receive(request, *args, **kwargs):
   return render(request, "cardgame/game_receive.html")

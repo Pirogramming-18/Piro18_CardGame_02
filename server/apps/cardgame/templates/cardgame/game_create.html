@@ -1,14 +1,15 @@
 {% extends 'cardgame/base.html' %}
 {% block content %}
 <div class="d-flex flex-column align-items-center text-center bg-dark" id="create-con">
-  <form action="" method="post" enctype="multipart/form-data">
+  <form action="{% url 'cardgame:create' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <p class="text-light m-4">
       내가 고른 카드 :
       <select id="cardnum" name="cardnum">
-        <option name="cardnum">1</option>
-        <option name="cardnum">2</option>
-        <option name="cardnum">3</option>
+        <option name="" selected>카드선택</option>
+        {% for card_num in card_nums %}
+        <option name="cardnum">{{ card_num }}</option>
+        {% endfor %}
         <!-- { for cardnum in cardnums }
             <option value="{{ cardnum.id }}" name="cardnum">{{ cardnum }}</option>
         { endfor } -->
@@ -17,9 +18,10 @@
     <p class="text-light m-4">
       공격할 상대는?
       <select id="player" name="player">
-        <option name="player">Jeongwon</option>
-        <option name="player">Jeongwon</option>
-        <option name="player">Jeongwon</option>
+        <option name="" selected>공격상대선택</option>
+        {% for vs_user in vs_users %}
+        <option name="player">{{ vs_user }}</option>
+        {% endfor %}
         <!-- { for cardnum in cardnums }
             <option value="{{ cardnum.id }}" name="cardnum">{{ cardnum }}</option>
           { endfor } -->
