@@ -13,15 +13,15 @@
 <body>
   <header class="d-flex justify-content-between px-5 bg-black">
     <a href="{% url 'cardgame:main' %}" class="px-5 py-3 main-color">PIROGRAM CARDGAME</a>
-    <!-- {if 로그인 시 } -->
-    <div class="d-flex px-5 py-3">
-      <a href="" class="mx-3 text-light">게임하기</a><!--url 'cardgame:create-->
-      <a href="{% url 'cardgame:rank' %}" class="mx-3 text-light">랭킹보기</a>
-      <a href="" class="mx-3 text-light">로그아웃</a>
-    </div>
-    <!-- { else }
-    <a href="" class="px-5 py-3">로그인</a>
-    { endif } -->
+    {% if user.is_authenticated %}
+      <div class="d-flex px-5 py-3">
+        <a href="" class="mx-3 text-light">게임하기</a><!--url 'cardgame:create-->
+        <a href="{% url 'cardgame:rank' %}" class="mx-3 text-light">랭킹보기</a>
+        <a href="{% url 'cardgame:logout' %}" class="mx-3 text-light">로그아웃</a>
+      </div>
+    {% else %}
+      <a href="{% url 'cardgame:login' %}" class="px-5 py-3 text-light">로그인</a>
+    {% endif %}
   </header>
   {% block content %}
   {% endblock %}

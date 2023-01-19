@@ -1,8 +1,6 @@
-{% extends 'cardgame/base.html' %} {% block content %}
-<div
-  class="d-flex flex-column align-items-center text-center bg-dark"
-  id="create-con"
->
+{% extends 'cardgame/base.html' %}
+{% block content %}
+<div class="d-flex flex-column align-items-center text-center bg-dark" id="create-con">
   <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <p class="text-light m-4">
@@ -13,7 +11,7 @@
         <option name="cardnum">3</option>
         <!-- { for cardnum in cardnums }
             <option value="{{ cardnum.id }}" name="cardnum">{{ cardnum }}</option>
-          { endfor } -->
+        { endfor } -->
       </select>
     </p>
     <p class="text-light m-4">
@@ -28,11 +26,7 @@
       </select>
     </p>
     <div>
-      <input
-        type="submit"
-        class="btn main-color btn-piro px-5"
-        value="공격하기!"
-      />
+      <input type="submit" class="btn main-color btn-piro px-5" value="공격하기!"/>
     </div>
   </form>
 </div>
