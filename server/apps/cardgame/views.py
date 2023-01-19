@@ -27,7 +27,8 @@ def game_detail(request, pk, *args, **kwargs):
 
 def game_create(request, *args, **kwargs):
   import random
-  user = request.user.username
+  user = request.user
+  username= request.user.username
   
   if request.method == "POST":
     print(request.POST['cardnum'])
@@ -45,6 +46,7 @@ def game_create(request, *args, **kwargs):
   
   context = {
     'user' : user,
+    'username' : username,
     'vs_users' : vs_users,
     'card_nums' : card_nums,
   }

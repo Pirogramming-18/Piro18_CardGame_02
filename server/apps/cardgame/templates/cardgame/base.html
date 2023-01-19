@@ -15,7 +15,7 @@
     <a href="{% url 'cardgame:main' %}" class="px-5 py-3 main-color">PIROGRAM CARDGAME</a>
     {% if user.is_authenticated %}
       <div class="d-flex px-5 py-3">
-        <a href="" class="mx-3 text-light">게임하기</a><!--url 'cardgame:create-->
+        <a href="{% url 'cardgame:create' %}" class="mx-3 text-light">게임하기</a><!--url 'cardgame:create-->
         <a href="{% url 'cardgame:rank' %}" class="mx-3 text-light">랭킹보기</a>
         <a href="{% url 'cardgame:logout' %}" class="mx-3 text-light">로그아웃</a>
       </div>
