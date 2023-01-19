@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
   login_id = models.CharField(max_length=50)
   points = models.IntegerField(default=0)
+  created_at = models.DateTimeField(auto_now_add=True)
   
 class Game(models.Model):
   receiver_card_num = models.IntegerField(null=True)
