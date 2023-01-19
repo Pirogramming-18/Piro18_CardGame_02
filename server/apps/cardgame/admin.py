@@ -1,4 +1,9 @@
 from django.contrib import admin
-from server.apps.cardgame import models
+from .models import User, Game
+# Register your models here.
 
-admin.site.register(models.User)
+class UserAdmin(admin.ModelAdmin):
+	list_display = ('name', 'title', 'devtool',)
+ 
+admin.site.register(User)
+admin.site.register(Game)
