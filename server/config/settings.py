@@ -123,3 +123,6 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+#패키지와 모델 이름만 지정
+AUTH_USER_MODEL = 'cardgame.User'

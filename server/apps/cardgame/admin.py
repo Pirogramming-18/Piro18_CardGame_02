@@ -1,3 +1,4 @@
 from django.contrib import admin
+from server.apps.cardgame import models
 
-# Register your models here.
+admin.site.register(models.User)
