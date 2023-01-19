@@ -14,3 +14,4 @@ class Game(models.Model):
   receiver = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='game_receiver')
   sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='game_sender')  
   created_at = models.DateTimeField(auto_now_add=True)
+  win_condition = models.CharField(max_length=50)

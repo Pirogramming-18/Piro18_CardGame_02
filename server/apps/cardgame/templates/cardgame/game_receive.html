@@ -5,16 +5,17 @@
 >
   <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <h5 class="text-light m-5"><b>상대방user 에게 반격하세요!</b></h5>
+    <h5 class="text-light m-5"><b>{{ game.sender }}에게 반격하세요!</b></h5>
     <p class="text-light m-4">
       내가 고른 카드 :
       <select id="cardnum" name="cardnum">
-        <option name="cardnum">1</option>
-        <option name="cardnum">2</option>
-        <option name="cardnum">3</option>
+        <option name="" selected>카드선택</option>
+        {% for card_num in card_nums %}
+        <option name="cardnum">{{ card_num }}</option>
+        {% endfor %}
         <!-- { for cardnum in cardnums }
             <option value="{{ cardnum.id }}" name="cardnum">{{ cardnum }}</option>
-          { endfor } -->
+        { endfor } -->
       </select>
     </p>
     <div>
