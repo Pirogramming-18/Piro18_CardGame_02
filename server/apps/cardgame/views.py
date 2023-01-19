@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from server.apps.cardgame.forms import SignupForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
-
+from server.apps.cardgame.models import User
 
 def main(request, *args, **kwargs):
   return render(request, "cardgame/main.html")
@@ -49,10 +49,11 @@ def login(request):
         if form.is_valid():
             user = form.get_user()
             auth.login(request, user)
-            return redirect('cardgame:base')
+            return redirect('cardgame:main')
         else:
             context = {
                 'form': form,
+                'user': user
             }
             return render(request, template_name='cardgame/login.html', context=context)
     else:
