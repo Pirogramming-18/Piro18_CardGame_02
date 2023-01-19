@@ -1,14 +1,18 @@
 from django.urls import path
 from . import views
 
-app_name="cardgame"
+app_name = "cardgame"
 
 urlpatterns = [
-    path("", views.cardgame_startpage, name="start"),
-    path("cardgame/playgame", views.cardgame_playgame, name="game"),
-    path("cardgame/viewrecord", views.cardgame_viewrecord, name="record"),
-    path("cardgame/fightgame", views.cardgame_fightgame, name="fight"),
-    path("cardgame/game/<int:pk>", views.cardgame_detail, name="detail"),
-    path("cardgame/game/<int:pk>/delete", views.cardgame_delete, name="delete"),
-    path("cardgame/viewranking", views.cardgame_viewranking, name="ranking"),
+  path("", views.main, name="main"),
+  path("game/", views.game_list, name="list"),
+  path("game/rank/", views.game_rank, name="rank"),
+  path('game/create/', views.game_create, name='create'),
+  path("game/<int:pk>/", views.main, name="detail"),
+  path('game/receive/<int:pk>/', views.game_receive, name='update'),
+  # path('game/delete/<int:pk>/', views.game_delete, name='delete'),
+  path("signup/", views.signup, name="signup"),
+  path("login/", views.login, name="login"),
+  path("logout/", views.logout, name="logout"),
+
 ]

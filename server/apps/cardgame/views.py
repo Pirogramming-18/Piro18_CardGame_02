@@ -1,59 +1,92 @@
 from django.shortcuts import render, redirect
-from server.apps.cardgame.models import User, GameDB
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate, login, logout
+from server.apps.cardgame.forms import SignupForm
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import auth
+from django.contrib.auth import get_user_model
+from server.apps.cardgame.models import User, Game
 
-def login(request):
-    return
+def main(request, *args, **kwargs):
+  return render(request, "cardgame/main.html")
 
-def logout(request):
-    return
+def game_list(request, *args, **kwargs):
+  return render(request, "cardgame/game_list.html")
+
+def game_detail(request, *args, **kwargs):
+  return render(request, "cardgame/game_detail.html")
+
+def game_create(request, *args, **kwargs):
+  import random
+  user = request.user.username
+  
+  if request.method == "POST":
+    print(request.POST['cardnum'])
+    receive = request.POST['player']
+    Game.objects.create(
+      sender_card_num = request.POST['cardnum'],
+      receiver = User.objects.get(username=receive),
+      sender = User.objects.get(username=user),
+    )
+    return redirect("cardgame:list")
+  
+  vs_users = User.objects.exclude(username=user)
+  card_list= [1,2,3,4,5,6,7,8,9,10]
+  card_nums = sorted(random.sample(card_list, 5))
+  
+  context = {
+    'user' : user,
+    'vs_users' : vs_users,
+    'card_nums' : card_nums,
+  }
+  return render(request, "cardgame/game_create.html", context=context)
+
+def game_receive(request, *args, **kwargs):
+  return render(request, "cardgame/game_receive.html")
+
+def game_rank(request, *args, **kwargs):
+  return render(request, "cardgame/ranking.html")
+
+# def game_delete(request, *args, **kwargs):
+#   return redirect('')
+
 
 def signup(request):
-    return
-
-def login_or_not(request):
-    cur_user = request.user
-    
-    if cur_user.is_authenticated:
-        user = User.objects.get(user=request.user)
-        context={"user":user,}
-        return [user, context]
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth.login(request, user)      
+            return render(request, template_name="cardgame/main.html")
+        else:
+            return redirect('users:signup')
     else:
-        return False
-    
-def cardgame_startpage(request):
-    x = login_or_not(request)
-    if x:
-        # 로그인 되었을 경우 -> loginpage html로 rendering
-        # 만약 하나의 html에 if문으로 구분해놓았으면, 그냥 하나의 render만 보내면 ok
-        return render(request, "cardgame/startpage_login.html",context=x[1])
+        form = SignupForm()
+        context = {
+            'form': form,
+        }
+        return render(request, template_name='cardgame/signup.html', context=context)
+
+
+def login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            auth.login(request, user)
+            return redirect('cardgame:main')
+        else:
+            context = {
+                'form': form,
+                'user': user
+            }
+            return render(request, template_name='cardgame/login.html', context=context)
     else:
-        # 로그인되어있지 않으면 -> logoutpage html로 rendering
-        return redirect("cardgame/startpage_logout")
+        form = AuthenticationForm()
+        context = {
+            'form': form,
+        }
+        return render(request, template_name='cardgame/login.html', context=context)
 
-#게임 거는 화면
-def cardgame_playgame(request):
-    return
 
-#전적보기
-def cardgame_viewrecord(request):
-    return
-
-#반격하는 화면
-def cardgame_fightgame(request):
-    return
-
-#전적 디테일 화면
-def cardgame_detail(request):
-    return
-
-#전적 삭제
-def cardgame_delete(request):
-    return
-
-#랭킹 보기
-def cardgame_viewranking(request):
-    return
-
+def logout(request):
+    auth.logout(request)
+    return redirect('cardgame:main')
