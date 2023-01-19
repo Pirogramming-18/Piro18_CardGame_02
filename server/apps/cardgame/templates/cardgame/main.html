@@ -9,8 +9,10 @@
     </div>
     {% if user.is_authenticated %}
       <small class="mb-0 text-light">{{user.username}} 님이 로그인 중</small>
+      <a href="" class="btn main-color btn-piro m-1"><h4 class="my-0 mx-2"><b>게임하기</b></h4></a>
+      <a href="" class="btn main-color btn-piro m-1"><h4 class="my-0 mx-2"><b>전적보기</b></h4></a>
+    {% else %}
+      <a href="{% url 'cardgame:login' %}" class="btn main-color btn-piro m-1"><h4 class="my-0 mx-2"><b>게임하기</b></h4></a>
     {% endif %}
-    <a href="" class="btn main-color btn-piro m-1"><h4 class="my-0 mx-2"><b>게임하기</b></h4></a>
-    <a href="" class="btn main-color btn-piro m-1"><h4 class="my-0 mx-2"><b>전적보기</b></h4></a>
   </div>
 {% endblock %}
