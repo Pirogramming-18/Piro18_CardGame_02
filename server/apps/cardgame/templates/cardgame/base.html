@@ -11,21 +11,21 @@
   <script src="https://kit.fontawesome.com/f95b2ab384.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <header class="d-flex justify-content-between px-5 bg-dark">
-    <a href="" class="px-5 py-3">PIROGRAM CARDGAME</a>
+  <header class="d-flex justify-content-between px-5 bg-black">
+    <a href="{% url 'cardgame:main' %}" class="px-5 py-3 main-color">PIROGRAM CARDGAME</a>
     <!-- {if 로그인 시 } -->
     <div class="d-flex px-5 py-3">
-      <a href="" class="mx-3">게임하기</a>
-      <a href="" class="mx-3">랭킹보기</a>
-      <a href="" class="mx-3">로그아웃</a>
+      <a href="" class="mx-3 text-light">게임하기</a><!--url 'cardgame:create-->
+      <a href="{% url 'cardgame:rank' %}" class="mx-3 text-light">랭킹보기</a>
+      <a href="" class="mx-3 text-light">로그아웃</a>
     </div>
     <!-- { else }
-    <a href="" class="mx-3">로그인</a>
+    <a href="" class="px-5 py-3">로그인</a>
     { endif } -->
   </header>
   {% block content %}
   {% endblock %}
-  <footer class="bg-dark d-flex flex-column align-items-center justify-content-center py-2">
+  <footer class="bg-black d-flex flex-column align-items-center justify-content-center py-2">
     <p class="text-light my-1">피로그래밍 18기 화이팅!!!!!!!!</p>
     <p class="text-light my-1">방구석 피로그래밍 연구소 | CardGame은 2조가 최고예요.</p>
   </footer>

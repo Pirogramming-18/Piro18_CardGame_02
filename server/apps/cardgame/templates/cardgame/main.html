@@ -1,12 +1,14 @@
 {% extends 'cardgame/base.html' %}
 
 {% block content %}
-  <div class="bg-secondary d-flex flex-column align-items-center">
-    <h1>아이콘</h1>
-    <h2 class="text-light">전 세계 피로그래머와</h2>
-    <h2 class="text-light">한 판 승부 숫자카드게임</h2>
-    <p>user명 님이 로그인중</p>
-    <a href="" class="btn">게임하기</a>
-    <a href="" class="btn">전적보기</a>
+  <div class="d-flex flex-column align-items-center bg-dark" id="main-con">
+    <i class="fa-regular fa-lightbulb fa-3x main-color"></i>
+    <div class="p-4 text-center">
+      <h2 class="text-light"><b>전 세계 피로그래머와</b></h2>
+      <h2 class="text-light"><b>한 판 승부 숫자카드게임</b></h2>
+    </div>
+    <small class="mb-0 text-light">user명 님이 로그인중</small>
+    <a href="" class="btn main-color btn-piro m-1"><h4 class="my-0 mx-2"><b>게임하기</b></h4></a>
+    <a href="" class="btn main-color btn-piro m-1"><h4 class="my-0 mx-2"><b>전적보기</b></h4></a>
   </div>
 {% endblock %}
