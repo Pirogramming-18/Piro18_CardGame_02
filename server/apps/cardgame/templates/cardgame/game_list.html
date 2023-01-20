@@ -15,10 +15,14 @@
           </div>
           <div class="col-4">
             {% if game.receiver_card_num %}
-              {% if user == game.winner %}
-              <p class="text-light">결과: 승리</p>
+              {% if game.winner %}
+                {% if user == game.winner %}
+                <p class="text-light">결과: 승리</p>
+                {% else %}
+                <p class="text-light">결과: 패배</p>
+                {% endif %}
               {% else %}
-              <p class="text-light">결과: 패배</p>
+                <p class="text-light">결과: 무승부</p>
               {% endif %}
             {% else %}
               {% if user == game.receiver %}
