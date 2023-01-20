@@ -9,7 +9,7 @@
     <p class="text-light m-4">
       내가 고른 카드 :
       <select id="cardnum" name="cardnum">
-        <option name="" selected>카드선택</option>
+        <option name="cardnum" selected>카드선택</option>
         {% for card_num in card_nums %}
         <option name="cardnum">{{ card_num }}</option>
         {% endfor %}
@@ -25,6 +25,9 @@
         value="반격하기!"
       />
     </div>
+    {% if alert_text %}
+      <p class="text-light m-4">카드를 정확하게 골라주세요!</p>
+    {% endif %}
   </form>
 </div>
 {% endblock %}

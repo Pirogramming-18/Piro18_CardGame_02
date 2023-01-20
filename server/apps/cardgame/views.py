@@ -101,10 +101,25 @@ def game_create(request, *args, **kwargs):
   return render(request, "cardgame/game_create.html", context=context)
 
 def game_receive(request, pk, *args, **kwargs):
+  import random
+  
   game = Game.objects.get(pk=pk)
   user = request.user
+  alert_text = 0
+  card_list= [1,2,3,4,5,6,7,8,9,10]
+  card_nums = sorted(random.sample(card_list, 5))
+  vs_users = User.objects.exclude(username=user)
   
   if request.method == "POST":
+    if request.POST['cardnum'] == '카드선택':
+      alert_text = 1
+      context={
+        "alert_text" : alert_text,
+        'card_nums' : card_nums,
+        'vs_users' : vs_users,
+        'game' : game,
+      }
+      return render(request, "cardgame/game_receive.html", context=context)
     game.receiver_card_num = int(request.POST["cardnum"])
     if game.win_condition == 'bigger':
       if game.receiver_card_num > game.sender_card_num:
