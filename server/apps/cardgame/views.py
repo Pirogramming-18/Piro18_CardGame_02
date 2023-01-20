@@ -8,6 +8,7 @@ from server.apps.cardgame.models import User, Game
 from .models import Game
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
 def main(request, *args, **kwargs):
   return render(request, "cardgame/main.html")
@@ -65,10 +66,24 @@ def game_create(request, *args, **kwargs):
   import random
   user = request.user
   username= request.user.username
+  alert_text = 0
+  card_list= [1,2,3,4,5,6,7,8,9,10]
+  card_nums = sorted(random.sample(card_list, 5))
+  vs_users = User.objects.exclude(username=user)
   
   if request.method == "POST":
     receive = request.POST['player']
     win_condition = random.choice(['bigger','smaller'])
+    
+    if request.POST['cardnum'] == '카드선택' or request.POST['player'] == '공격상대선택':
+      alert_text = 1
+      context={
+        "alert_text" : alert_text,
+        'card_nums' : card_nums,
+        'vs_users' : vs_users,
+      }
+      return render(request, "cardgame/game_create.html", context=context)
+    
     Game.objects.create(
       sender_card_num = request.POST['cardnum'],
       receiver = User.objects.get(username=receive),
@@ -76,10 +91,6 @@ def game_create(request, *args, **kwargs):
       win_condition = win_condition,
     )
     return redirect("cardgame:list")
-  
-  vs_users = User.objects.exclude(username=user)
-  card_list= [1,2,3,4,5,6,7,8,9,10]
-  card_nums = sorted(random.sample(card_list, 5))
   
   context = {
     'user' : user,
