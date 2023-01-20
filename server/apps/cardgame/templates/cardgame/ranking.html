@@ -1,0 +1,18 @@
+{% extends 'cardgame/base.html' %}
+
+{% block content %}
+  <div class="d-flex justify-content-center align-items-center bg-dark">
+    <div class="bg-black p-5" id="detail-con">
+      <h4 class="text-light mb-3"><b>Piro 명예의 전당</b></h4>
+      <br>
+      <ol>
+      {% for player in users %}
+        <li class="my-3 text-light"><b> {{player.username}}님! 총점수: {{player.points}} 점</b></li>
+      {% endfor %}
+      </ol>
+      <div class="d-flex justify-content-center">
+        <a href="{% url 'cardgame:list' %}" class="btn main-color btn-piro">전적 목록</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

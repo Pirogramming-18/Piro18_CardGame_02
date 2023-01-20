@@ -1,0 +1,95 @@
+/* html, body {
+  height: 100%
+}
+
+.wrap {
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 60px;
+}
+
+footer, header {
+  position: relative;
+  transform: translatY(-100%);
+} */
+
+:root {
+  --maincolor : #8ec451;
+}
+
+body {
+  overflow-y:hidden;
+  height: 100%;
+}
+
+body > div {
+  background-color: rgb(54, 54, 54);
+  overflow-y: scroll;
+  height: 37rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+.main-color {
+  color: var(--maincolor);
+}
+
+.bg-black {
+  background-color: rgb(26, 26, 26);
+}
+
+/* main.html css */
+#main-con {
+  padding: 7rem;
+  height: 37rem;
+}
+
+.btn-piro {
+  border: 3px solid var(--maincolor);
+}
+
+/* game_create.html css */
+#create-con {
+  padding: 12rem;
+  height: 37rem;
+}
+
+/* game_list.html css */
+#list-pcon {
+  height: 32rem;
+}
+
+#list-con {
+  padding: 0 7rem;
+}
+
+#list-title {
+  margin-top: 3rem;
+  padding-left: 0.3rem;
+  border-left: solid 3px var(--maincolor);
+}
+
+/* game_detail.html css */
+#detail-con {
+  width: 40%;
+  border-radius: 6px;
+  box-shadow: 7px 7px 7px black;
+}
+
+/* game_receive.html css */
+#receive-con {
+  padding: 12rem;
+  height: 37rem;
+}
+
+/* login.html css */
+#login-con {
+  border-radius: 6px;
+  box-shadow: 7px 7px 7px black;
+}
+
+#login-box {
+  padding: 5rem;
+}
